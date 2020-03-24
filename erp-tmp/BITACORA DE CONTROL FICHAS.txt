@@ -1,0 +1,9 @@
+- El modulo usuarios se convierte en la entrada principal (DashBoard)
+	-La opcion de agregar se queda como nuevo usuario
+
+Busqueda:	html2pdf class="float"
+
+https://stackoverflow.com/questions/8776391/working-with-css-floats-in-html2pdf
+https://mpdf.github.io/what-else-can-i-do/floating-blocks.html
+
+http://divtable.com/table-styler/

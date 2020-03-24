@@ -1,0 +1,24 @@
+===========
+31 Dic 2019
+===========
+Control de los errores, estos cambios son afectados por los cambios en el archivo .htaccess
+1. Se creo el archivo: menus.php
+	require_once ("menus.php"); in :
+								main.php
+								productos.php
+								facturas.php
+								compras.php
+								clientes.php
+								proveedores.php
+								lineas.php
+								marcas.php
+								unidades.php
+								almacenes.php
+								usuarios.php
+								perfil.php
+								nueva_factura.php
+2.Se modifico /modal/registro_productos.php								
+								
+								
+															
+																

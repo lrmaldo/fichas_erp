@@ -1,0 +1,26 @@
+# Do not remove this line or mod_rewrite rules and search engine friendly URLs $
+RewriteBase /
+
+<IfModule mod_headers.c>
+    FileETag None
+    Header unset ETag
+    Header unset Pragma
+    Header unset Cache-Control
+    Header unset Last-Modified
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "Mon, 10 Apr 1972 00:00:00 GMT"
+</IfModule>
+
+<IfModule mod_php5.c>
+    #Session timeout
+    php_value session.cookie_lifetime 18000
+    php_value session.gc_maxlifetime 18000
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^maximcard\/(.*)\/ui\-([0-9]+)\/(.*) maximcard/$1/ui/$3 [L]
+</IfModule>
+

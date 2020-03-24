@@ -1,0 +1,14 @@
+<?php
+	$active_facturas="";
+	$active_compras="";
+	$active_productos="";
+	$active_clientes="";
+	$active_proveedores="";
+	$active_lineas="";
+	$active_marcas="";
+	$active_und="";
+	$active_almacenes="";
+	$active_entradas="";
+	$active_salidas="";
+	$active_usuarios="";
+?>

@@ -1,0 +1,88 @@
+27Ago2019
+=========================================================================================================
+PLANTILLAS DE COMENTARIOS PARA MOSTRAR EN LAS COTIZACIONES Y VENTAS
+		
+		1. Crear en cotizaciones-ventas plantillas de comentarios y Ads show image, se necesita crear la tabla "themes_comments"
+			este almacenamiento sera mientras para los comentarios, para las imegenes sera otro metodo similar.
+				CREATE TABLE `themes_comments` (
+				  `id` int(2) NOT NULL AUTO_INCREMENT,
+				  `theme_name` text NOT NULL,
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		2.Asi mismo aparte de la lista select se requiere un boton para agregar nuevos comentarios a la lista, esto mediente
+			una ventana de windos modal.
+		3.Se requiere crear un campo en la tabla facturas para control el id del theme
+				ALTER TABLE facturas ADD COLUMN `id_theme_coment` tinyint(1) not null default '0';
+
+03Sep2019
+PLANTILLAS DE IMAGENES PARA MOSTRAR EN LAS COTIZACIONES Y VENTAS
+		
+		1. Se tiene que crear una nueva tabla "themes_images"
+			CREATE TABLE `themes_images` (
+				  `id` int(2) NOT NULL AUTO_INCREMENT,
+				  `theme_image_name` varchar(20) NOT NULL DEFAULT "",
+				  `theme_image_titulo` varchar(50) NOT NULL,
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		2. Crear campo en tabla facturas para el control del id de las imagenes
+			ALTER TABLE facturas ADD COLUMN `id_theme_image` tinyint(1) not null default '0';
+
+En los dos puntos anteriores los archivos que intervienen son:
+	Rama: nueva_factura.php
+						include("modal/buscar_productos.php");
+						include("modal/registro_clientes.php");
+						include("modal/registro_productos.php");
+						include("modal/registro_theme_coments.php"); (archivo nuevo)
+						include("modal/registro_theme_image.php"); (archivo nuevo)
+						- ajax/autocomplete/clientes.php
+						- ajax/autocomplete/theme_coments.php (archivo nuevo)
+						- pdf/documentos/documento_pdf.php
+						*-----------------------------------------------------------------------------------------------------*
+						Sub Rama: nueva_factura.js
+						*-----------------------------------------------------------------------------------------------------*
+						- ajax/productos_factura.php => Se seleccionan los productos para la cotiza-venta
+						- ajax/agregar_facturacion.php => Se muestran las partidas de los productos seleccionados
+						- ajax/nuevo_cliente
+						- ajax/nuevo_producto.php
+						- ajax/images_factura.php (archivo nuevo)
+						- ajax/nuevo_theme_coment.php (archivo nuevo)
+						- ajax/nuevo_theme_image.php (archivo nuevo)
+						
+	Rama: editar_factura.php
+						include("modal/buscar_productos.php");
+						include("modal/registro_clientes.php");
+						include("modal/registro_productos.php");
+						include("modal/registro_theme_coments.php"); (archivo nuevo)
+						include("modal/registro_theme_image.php"); (archivo nuevo)
+						ajax/autocomplete/clientes.php
+						ajax/cotiza-venta.php
+						ajax/editar_facturacion.php
+						ajax/autocomplete/clientes.php
+					*-----------------------------------------------------------------------------------------------------*
+						Sub Rama: editar_factura.js
+						*-----------------------------------------------------------------------------------------------------*
+						ajax/productos_factura.php
+						ajax/images_factura.php (archivo nuevo)
+						ajax/editar_facturacion.php
+						ajax/editar_factura.php
+						ajax/nuevo_cliente.php
+						ajax/nuevo_producto.php
+						ajax/nuevo_theme_image.php (archivo nuevo)
+			
+	Pendiente:
+	
+		1. Con respecto a los descuentos se tomaran en cuenta los clientes registrados unicamente y seran automaticos, basado 
+			en su tipo de descuento por precio y en el modulo de nueva_factura.php y editar_factura.php apareceran en el 
+			desgloce.
+		2. Es necesario para esto crear un campo en el catalogo de clientes donde se guardara la comision si es que se aplica 
+			para ese cliente o no, todo esto aparte sobre el precio seleccionado que ya tiene. desc decimal(15,3) title Desc %
+			ALTER TABLE clientes ADD COLUMN `desc_porcent` decimal(8,3) null default '0' after status_cliente;
+		3. Se modifican los form 
+			A) modal/registro_clientes.php	B) modal/editar_clientes.php	C) js/clientes.js	D) ajax/nuevo_cliente.php
+			E) ajax/editar_cliente.php	F) ajax/buscar_clientes.php
+		4. Se necesita en table tmp crear un campo para el descuento 0.000
+			ALTER TABLE `tmp` ADD  `desc_porcent` double(8,3) NOT NULL DEFAULT '0.000'
+		5. Igualmente en table detalle_factura crear un campo para el descuento 0.000 las mismas propriedades que en table tmp
+			ALTER TABLE `detalle_factura` ADD  `desc_porcent` double(8,3) NOT NULL DEFAULT '0.000'
+			MANIFIESTO : Todos los puntos fueron realizados en test
+		6. Se proceden a cambiar los archivos ajax/agregar_facturacion.php
